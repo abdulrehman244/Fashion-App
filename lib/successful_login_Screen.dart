@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/main.dart';
+import 'package:e_commerce_app/drawer.dart';
 import 'package:flutter/material.dart';
 
 class LoginSuccessfull extends StatelessWidget {
@@ -27,7 +27,7 @@ class LoginSuccessfull extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => CustomBottomNavigationBar()),
+                        MaterialPageRoute(builder: (context) => DrawerView()),
                       );
                     },
                     style: TextButton.styleFrom(

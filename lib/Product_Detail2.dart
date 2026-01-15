@@ -24,6 +24,7 @@ class BagProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -187,9 +188,14 @@ class BagProductPage extends StatelessWidget {
                         TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Text('Add to Cart'),
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(horizontal: 24)),
+                  child: Text('Add to Cart',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                 ),
               ],
             ),

@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/Login_Screen.dart';
-import 'package:e_commerce_app/Welcome_Screen.dart';
 import 'package:e_commerce_app/Widgets/CustomProfile.dart';
 import 'package:flutter/material.dart';
 
@@ -170,7 +169,7 @@ class _File1State extends State<ProfileScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => WelcomeScreen(),
+                              builder: (context) => LoginScreen(),
                             ),
                           );
                         },
@@ -183,6 +182,8 @@ class _File1State extends State<ProfileScreen> {
                     ],
                   ),
                 ),
+
+                SizedBox(height: 20,)
               ],
             ),
           ),

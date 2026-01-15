@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/successful_login_Screen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -57,11 +58,13 @@ class LoginScreen extends StatelessWidget {
                       TextField(
                         decoration: InputDecoration(
                           hintText: "Enter Your Gmail",
-                          suffixIcon: Icon(
-                            Icons.check_circle_sharp,
-                            color: Colors.black,
-                            size: 20,
-                          ),
+                          // suffixIcon: 
+                          // Icon(
+                          //   Icons.check_circle_sharp,
+                          //   color: Colors.black,
+                          //   size: 20,
+                          // ),
+                        
                         ),
                       ),
                   
@@ -80,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           hintText: "Enter Your Password",
                           suffixIcon: Icon(
-                            Icons.check_circle_sharp,
+                            Icons.visibility_off_outlined,
                             color: Colors.black,
                             size: 20,
                           ),
@@ -90,14 +93,39 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(height: 50),
                   
                       TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginSuccessfull(),
-                            ),
-                          );
-                        },
+                        onPressed: () async {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Container(
+            color: Colors.black.withOpacity(0.3),
+            child: Center(
+              child: Lottie.asset("assets/images/search_load.json")
+            ),
+          );
+        },
+      );
+
+      await Future.delayed(const Duration(seconds: 3));
+      Navigator.of(context).pop();
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginSuccessfull(),
+        ),
+      );
+    },
+
+                        // onPressed: () {
+                        //   Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => LoginSuccessfull(),
+                        //     ),
+                        //   );
+                        // },
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.black,
                           padding: EdgeInsets.symmetric(

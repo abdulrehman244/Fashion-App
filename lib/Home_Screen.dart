@@ -1,9 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/Product_Detail.dart';
 import 'package:e_commerce_app/Product_Detail2.dart';
 import 'package:e_commerce_app/Widgets/CustomDisscount.dart';
 import 'package:e_commerce_app/Widgets/CustomNewArrival.dart';
 import 'package:e_commerce_app/Widgets/CustomPopularItems.dart';
 import 'package:flutter/material.dart';
+import 'package:hidden_drawer_menu/controllers/simple_hidden_drawer_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,86 +19,109 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
+   
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(left: 25, top: 5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Firts Line
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Colors.black,
-                      child: Padding(
-                        padding: EdgeInsets.all(9),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 15),
-                              height: 2,
-                              width: 16,
-                              color: Colors.white,
-                            ),
-                            SizedBox(height: 6),
-                            Container(
-                              height: 2,
-                              width: double.infinity,
-                              color: Colors.white,
-                            ),
-                            SizedBox(height: 6),
-                            Container(
-                              margin: EdgeInsets.only(right: 15),
-                              height: 2,
-                              width: 16,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Spacer(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.search, color: Colors.black, size: 38),
-                    ),
-                    SizedBox(width: 10),
+              SizedBox(height: 10,),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                Builder(
+  builder: (context) => InkWell(
+    onTap: () {
+      SimpleHiddenDrawerController.of(context).toggle();
+    },
+    child: CircleAvatar(
+      radius: 25,
+      backgroundColor: Colors.black,
+      child: Padding(
+        padding: EdgeInsets.all(9),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 15),
+              height: 2,
+              width: 16,
+              color: Colors.white,
+            ),
+            SizedBox(height: 6),
+            Container(
+              height: 2,
+              width: double.infinity,
+              color: Colors.white,
+            ),
+            SizedBox(height: 6),
+            Container(
+              margin: EdgeInsets.only(right: 15),
+              height: 2,
+              width: 16,
+              color: Colors.white,
+            ),
+          ],
+        ),
+      ),
+    ),
+  ),
+),
+
+
+                        Spacer(),
+                
+                          IconButton(
+                            onPressed: () {
+                // search action
+                print("Search tapped in AppBar");
+                            },
+                            icon: Icon(Icons.search, color: Colors.black, size: 30),
+                          ),
+                
+                
+                        
                   ],
                 ),
-                SizedBox(height: 0),
+              ),
 
-                //========================================================================
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      DiscountWidget("assets/images/disscount01.png"),
-                      SizedBox(width: 18),
-                      DiscountWidget("assets/images/disscount02.png"),
-                      SizedBox(width: 18),
-                      DiscountWidget("assets/images/disscount01.png"),
-                      SizedBox(width: 18),
-                      DiscountWidget("assets/images/disscount02.png"),
-                      SizedBox(width: 18),
-                      DiscountWidget("assets/images/disscount01.png"),
-                      SizedBox(width: 18),
-                      DiscountWidget("assets/images/disscount02.png"),
-                      SizedBox(width: 18),
-                    ],
-                  ),
+              SizedBox(height: 20,),
+
+              
+
+              //================= Deals Carousel =================
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 220,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  enlargeCenterPage: false,
+                  viewportFraction: 1.0,
                 ),
+                items: [
+                  "assets/images/disscount01.png",
+                  "assets/images/disscount02.png",
+                  "assets/images/disscount01.png",
+                  "assets/images/disscount02.png",
+                ].map((image) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return DiscountWidget(image); // your custom widget
+                    },
+                  );
+                }).toList(),
+              ),
 
-                //================================================================================
+              SizedBox(height: 20),
 
-                // new Arrival text and view all button
-                Row(
+              //================= New Arrivals =================
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
                   children: [
                     Text(
                       "New Arrivals",
@@ -114,12 +139,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
-                    SizedBox(width: 12),
                   ],
                 ),
+              ),
 
-                // New Arrival section
-                Row(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
                   children: [
                     Expanded(
                       child: GestureDetector(
@@ -158,16 +184,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 13),
                   ],
                 ),
+              ),
 
-                SizedBox(height: 14),
+              SizedBox(height: 20),
 
-                //========================================================================
-
-                // popular section
-                Row(
+              //================= Popular =================
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
                   children: [
                     Text(
                       "Popular",
@@ -185,122 +211,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
-                    SizedBox(width: 12),
                   ],
                 ),
+              ),
 
-                customPopularItem(
-                  "assets/images/headphone.png",
-                  "Zero HeadPhone",
-                  590,
-                ),
-                SizedBox(height: 15),
+              SizedBox(height: 10),
 
-                customPopularItem(
-                  "assets/images/popular_shirt.png",
-                  "Marlins Shirts",
-                  376,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    customPopularItem("assets/images/headphone.png", "Zero HeadPhone", 590),
+                    SizedBox(height: 15),
+                    customPopularItem("assets/images/popular_shirt.png", "Marlins Shirts", 376),
+                    SizedBox(height: 15),
+                    customPopularItem("assets/images/newarrival_shoes.png", "Jordan Shoes", 825),
+                    SizedBox(height: 15),
+                    customPopularItem("assets/images/newarrival_bag.png", "Cucci Bag", 933),
+                    SizedBox(height: 15),
+                  ],
                 ),
-                SizedBox(height: 15),
+              ),
 
-                customPopularItem(
-                  "assets/images/newarrival_shoes.png",
-                  "Jordan Shoes",
-                  825,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/newarrival_bag.png",
-                  "Cucci Bag",
-                  933,
-                ),
-                SizedBox(height: 15),
-                customPopularItem(
-                  "assets/images/headphone.png",
-                  "Zero HeadPhone",
-                  590,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/popular_shirt.png",
-                  "Marlins Shirts",
-                  376,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/newarrival_shoes.png",
-                  "Jordan Shoes",
-                  825,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/newarrival_bag.png",
-                  "Cucci Bag",
-                  933,
-                ),
-                SizedBox(height: 15),
-                customPopularItem(
-                  "assets/images/headphone.png",
-                  "Zero HeadPhone",
-                  590,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/popular_shirt.png",
-                  "Marlins Shirts",
-                  376,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/newarrival_shoes.png",
-                  "Jordan Shoes",
-                  825,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/newarrival_bag.png",
-                  "Cucci Bag",
-                  933,
-                ),
-                SizedBox(height: 15),
-                customPopularItem(
-                  "assets/images/headphone.png",
-                  "Zero HeadPhone",
-                  590,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/popular_shirt.png",
-                  "Marlins Shirts",
-                  376,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/newarrival_shoes.png",
-                  "Jordan Shoes",
-                  825,
-                ),
-                SizedBox(height: 15),
-
-                customPopularItem(
-                  "assets/images/newarrival_bag.png",
-                  "Cucci Bag",
-                  933,
-                ),
-                SizedBox(height: 15),
-
-                //===========
-              ],
-            ),
+            ],
           ),
         ),
       ),
